@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://contactkeeper:DXoRk4cXUbYCGOhw@contactkeeper-h2zim.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "This-is-sanu-secret-code-that-is-used-in-this-contacts-app"
+}
