@@ -247,9 +247,13 @@ body {
 }
 .btn__edit {
 	color: var(--color-blue);
+	border: none;
+	cursor: pointer;
 }
 .btn__delete {
 	color: var(--color-red);
+	border: none;
+	cursor: pointer;
 }
 .btn__icon {
 	width: 2rem;
@@ -543,6 +547,7 @@ body {
 .navbar__links--icon {
 	height: 1.2rem;
 	width: 1.2rem;
+	margin-left: .5rem;
 	fill: var(--color-blue);
 }
 @media only screen and (max-width: 40.625em) {
