@@ -1,7 +1,43 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+import { logout } from './../../actions/authActions';
+
+const Navbar = ({ isAuthenticated, logout }) => {
+	const publicRoute = (
+		<Fragment>
+			<li>
+				<Link to='/login'>
+					<span>Login</span>
+					<svg className='navbar__links--icon'>
+						<use xlinkHref='img/sprite.svg#icon-login' />
+					</svg>
+				</Link>
+			</li>
+			<li>
+				<Link to='/register'>
+					<span>Register</span>
+					<svg className='navbar__links--icon'>
+						<use xlinkHref='img/sprite.svg#icon-log-out' />
+					</svg>
+				</Link>
+			</li>
+		</Fragment>
+	);
+
+	const privateRoute = (
+		<Fragment>
+			<li>
+				<Link to='/' onClick={() => logout()}>
+					<span>Logout</span>
+					<svg className='navbar__links--icon'>
+						<use xlinkHref='img/sprite.svg#icon-log-out' />
+					</svg>
+				</Link>
+			</li>
+		</Fragment>
+	);
 	return (
 		<header className='header'>
 			<nav className='navbar'>
@@ -30,26 +66,15 @@ const Navbar = () => {
 							</svg>
 						</Link>
 					</li>
-					<li>
-						<Link to='/'>
-							<span>Login</span>
-							<svg className='navbar__links--icon'>
-								<use xlinkHref='img/sprite.svg#icon-login' />
-							</svg>
-						</Link>
-					</li>
-					<li>
-						<Link to='/'>
-							<span>Register</span>
-							<svg className='navbar__links--icon'>
-								<use xlinkHref='img/sprite.svg#icon-log-out' />
-							</svg>
-						</Link>
-					</li>
+					{isAuthenticated ? privateRoute : publicRoute}
 				</ul>
 			</nav>
 		</header>
 	);
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
