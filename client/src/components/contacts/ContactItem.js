@@ -32,7 +32,7 @@ const ContactItem = ({ contact, setCurrent, deleteContact }) => {
 					</svg>
 					Edit
 				</button>
-				<button className='btn btn__delete' onClick={() => deleteContact(contact.id)}>
+				<button className='btn btn__delete' onClick={() => deleteContact(contact._id)}>
 					<svg className='btn__icon'>
 						<use xlinkHref='img/sprite.svg#icon-box' />
 					</svg>

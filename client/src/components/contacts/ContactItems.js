@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import { getContacts } from './../../actions/contactActions';
 import ContactItem from './ContactItem';
 
-const ContactItems = ({ contacts }) => {
+const ContactItems = ({ contacts, getContacts }) => {
+	useEffect(() => {
+		getContacts();
+		//eslint-disable-next-line
+	}, []);
 	return (
 		<section className='cards'>
 			<div className='filter'>
@@ -17,7 +22,7 @@ const ContactItems = ({ contacts }) => {
 				</form>
 			</div>
 
-			{contacts.map((contact) => <ContactItem key={contact.id} contact={contact} />)}
+			{contacts.map((contact) => <ContactItem key={contact._id} contact={contact} />)}
 		</section>
 	);
 };
@@ -26,4 +31,4 @@ const mapStateToProps = (state) => ({
 	contacts: state.contacts.contacts
 });
 
-export default connect(mapStateToProps, {})(ContactItems);
+export default connect(mapStateToProps, { getContacts })(ContactItems);

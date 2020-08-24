@@ -5,7 +5,7 @@ import { login, loadUser, clearErrors } from './../../actions/authActions';
 import { setAlert } from './../../actions/alertActions';
 
 const Login = (props) => {
-	const { login, setAlert, loadUser, clearErrors, error, isAuthenticated } = props;
+	const { login, setAlert, loadUser, clearErrors, error, token } = props;
 
 	useEffect(
 		() => {
@@ -13,13 +13,13 @@ const Login = (props) => {
 				setAlert(error, 'danger');
 				clearErrors();
 			}
-			if (isAuthenticated) {
+			if (token) {
 				loadUser();
 				props.history.push('/');
 			}
 		},
 		//eslint-disable-next-line
-		[ error, isAuthenticated, props.history ]
+		[ error, token, props.history ]
 	);
 
 	const [ user, SetUser ] = useState({
@@ -90,7 +90,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => ({
 	error: state.auth.error,
-	isAuthenticated: state.auth.isAuthenticated
+	token: state.auth.token
 });
 
 export default connect(mapStateToProps, { login, setAlert, loadUser, clearErrors })(Login);

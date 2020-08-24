@@ -1,18 +1,9 @@
-import React, { Fragment, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment } from 'react';
 
 import ContactForm from './../contacts/ContactForm';
 import ContactItems from './../contacts/ContactItems';
-import { loadUser } from './../../actions/authActions';
 
-const Home = ({ loadUser, token }) => {
-	useEffect(
-		() => {
-			if (token) loadUser();
-		},
-		// eslint-disable-next-line
-		[ token ]
-	);
+const Home = () => {
 	return (
 		<Fragment>
 			<ContactForm />
@@ -21,8 +12,4 @@ const Home = ({ loadUser, token }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({
-	token: state.auth.token
-});
-
-export default connect(mapStateToProps, { loadUser })(Home);
+export default Home;

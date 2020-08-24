@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import uuid from 'react-uuid';
 import { connect } from 'react-redux';
 
 import { addContact, updateContact, clearCurrent } from './../../actions/contactActions';
@@ -16,8 +15,7 @@ const ContactForm = ({ addContact, current, updateContact, clearCurrent }) => {
 		name: '',
 		email: '',
 		phone: '',
-		type: 'personal',
-		id: uuid()
+		type: 'personal'
 	});
 
 	const { name, email, phone, type } = user;
