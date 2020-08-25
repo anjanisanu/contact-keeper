@@ -5,21 +5,27 @@ import { login, loadUser, clearErrors } from './../../actions/authActions';
 import { setAlert } from './../../actions/alertActions';
 
 const Login = (props) => {
-	const { login, setAlert, loadUser, clearErrors, error, token } = props;
+	const { token, loadUser, login, setAlert, clearErrors, msg, error } = props;
 
 	useEffect(
 		() => {
-			if (error) {
-				setAlert(error, 'danger');
-				clearErrors();
-			}
 			if (token) {
 				loadUser();
 				props.history.push('/');
 			}
+
+			if (error) {
+				setAlert(error, 'danger');
+				clearErrors();
+			}
+
+			if (msg) {
+				setAlert(msg, 'success');
+				clearErrors();
+			}
 		},
 		//eslint-disable-next-line
-		[ error, token, props.history ]
+		[ error, token, msg, props.history ]
 	);
 
 	const [ user, SetUser ] = useState({
@@ -37,10 +43,10 @@ const Login = (props) => {
 		e.preventDefault();
 		login(user);
 
-		SetUser({
-			email: '',
-			password: ''
-		});
+		// SetUser({
+		// 	email: '',
+		// 	password: ''
+		// });
 	};
 
 	return (
@@ -89,6 +95,7 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+	msg: state.auth.msg,
 	error: state.auth.error,
 	token: state.auth.token
 });

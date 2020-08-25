@@ -30,7 +30,13 @@ router.post('/', auth, async (req, res) => {
 	if (!name || name === '') return res.status(400).json({ msg: 'Please Enter name of Contact' });
 	try {
 		const newContact = await Contact.create({ name, email, phone, type, user: req.user.id });
-		res.status(201).json(newContact);
+		res.status(201).json({
+			status: 'success',
+			msg: 'New Contact Added',
+			data: {
+				newContact
+			}
+		});
 	} catch (err) {
 		console.log(err.message);
 		res.status(500).send('Server Error');
@@ -59,10 +65,19 @@ router.put('/:id', auth, async (req, res) => {
 			return res.status(401).json({ msg: 'You do not have permission for this action' });
 
 		contact = await Contact.findByIdAndUpdate(req.params.id, { $set: contactField }, { new: true });
-		res.status(201).json(contact);
+		res.status(201).json({
+			status: 'success',
+			msg: 'Contact Updated',
+			data: {
+				contact
+			}
+		});
 	} catch (err) {
 		console.log(err.message);
-		res.status(500).send('Server Error');
+		res.status(500).send('Server Error').json({
+			status: 'fail',
+			msg: 'Something went wrong'
+		});
 	}
 });
 

@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { logout } from './../../actions/authActions';
+import { clearContacts } from './../../actions/contactActions';
 
-const Navbar = ({ isAuthenticated, logout }) => {
+const Navbar = ({ isAuthenticated, logout, clearContacts }) => {
+	const onLogout = () => {
+		logout();
+		clearContacts();
+	};
 	const publicRoute = (
 		<Fragment>
 			<li>
@@ -29,7 +34,7 @@ const Navbar = ({ isAuthenticated, logout }) => {
 	const privateRoute = (
 		<Fragment>
 			<li>
-				<Link to='/' onClick={() => logout()}>
+				<Link to='/' onClick={onLogout}>
 					<span>Logout</span>
 					<svg className='navbar__links--icon'>
 						<use xlinkHref='img/sprite.svg#icon-log-out' />
@@ -77,4 +82,4 @@ const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, clearContacts })(Navbar);

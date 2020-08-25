@@ -5,12 +5,16 @@ import { register, loadUser, clearErrors } from './../../actions/authActions';
 import { setAlert } from './../../actions/alertActions';
 
 const Register = (props) => {
-	const { register, setAlert, loadUser, clearErrors, error, isAuthenticated } = props;
+	const { register, setAlert, loadUser, clearErrors, msg, error, isAuthenticated } = props;
 
 	useEffect(
 		() => {
 			if (error) {
 				setAlert(error, 'danger');
+				clearErrors();
+			}
+			if (msg) {
+				setAlert(msg, 'success');
 				clearErrors();
 			}
 			if (isAuthenticated) {
@@ -126,6 +130,7 @@ const Register = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+	msg: state.auth.msg,
 	error: state.auth.error,
 	isAuthenticated: state.auth.isAuthenticated
 });

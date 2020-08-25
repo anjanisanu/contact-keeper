@@ -13,6 +13,7 @@ const intialState = {
 	token: localStorage.getItem('token'),
 	isAuthenticated: false,
 	loading: false,
+	msg: null,
 	error: null,
 	user: null
 };
@@ -26,7 +27,8 @@ export default (state = intialState, action) => {
 				...state,
 				...action.payload,
 				isAuthenticated: true,
-				loading: false
+				loading: false,
+				msg: action.payload.msg
 			};
 
 		case REGISTER_FAIL:
@@ -54,7 +56,8 @@ export default (state = intialState, action) => {
 		case CLEAR_ERRORS:
 			return {
 				...state,
-				error: null
+				error: null,
+				msg: null
 			};
 
 		default:

@@ -31,7 +31,10 @@ router.post('/', async (req, res) => {
 		jwt.sign(payload, process.env.jwtSecret, { expiresIn: '90d' }, (err, token) => {
 			if (err) throw err;
 
-			res.status(201).json({ token });
+			res.status(201).json({
+				msg: 'Registration Successful. Logged in..',
+				token
+			});
 		});
 	} catch (err) {
 		console.log(err.message);

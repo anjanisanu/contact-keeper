@@ -5,12 +5,16 @@ import {
 	DELETE_CONTACT,
 	SET_CURRENT,
 	CLEAR_CURRENT,
-	UPDATE_CONTACT
+	UPDATE_CONTACT,
+	CLEAR_CONTACTS,
+	CLEAR_MSG
 } from './../actions/types';
 
 const intialState = {
 	contacts: [],
-	current: null
+	current: null,
+	msg: null,
+	status: null
 };
 
 export default (state = intialState, action) => {
@@ -23,7 +27,9 @@ export default (state = intialState, action) => {
 		case ADD_CONTACT:
 			return {
 				...state,
-				contacts: [ action.payload, ...state.contacts ]
+				contacts: [ action.payload.data.newContact, ...state.contacts ],
+				msg: action.payload.msg,
+				status: action.payload.status
 			};
 
 		case DELETE_CONTACT:
@@ -49,8 +55,27 @@ export default (state = intialState, action) => {
 			return {
 				...state,
 				contacts: [
-					...state.contacts.map((contact) => (contact._id === action.payload._id ? action.payload : contact))
-				]
+					...state.contacts.map(
+						(contact) => (contact._id === action.payload.data.contact._id ? action.payload.data.contact : contact)
+					)
+				],
+				msg: action.payload.msg,
+				status: action.payload.status
+			};
+
+		case CLEAR_MSG:
+			return {
+				...state,
+				msg: null,
+				status: null
+			};
+
+		case CLEAR_CONTACTS:
+			return {
+				...state,
+				contacts: null,
+				status: null,
+				msg: null
 			};
 
 		case CONTACT_ERROR:

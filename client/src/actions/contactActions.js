@@ -6,7 +6,9 @@ import {
 	DELETE_CONTACT,
 	SET_CURRENT,
 	CLEAR_CURRENT,
-	UPDATE_CONTACT
+	UPDATE_CONTACT,
+	CLEAR_CONTACTS,
+	CLEAR_MSG
 } from './types';
 
 export const getContacts = () => async (dispatch) => {
@@ -83,4 +85,16 @@ export const updateContact = (formData) => async (dispatch) => {
 			payload: err.response.data.msg
 		});
 	}
+};
+
+export const clearContacts = () => (dispatch) => {
+	dispatch({
+		type: CLEAR_CONTACTS
+	});
+};
+
+export const clearMsg = () => (dispatch) => {
+	dispatch({
+		type: CLEAR_MSG
+	});
 };

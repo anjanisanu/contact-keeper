@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { addContact, updateContact, clearCurrent } from './../../actions/contactActions';
+import { addContact, updateContact, clearCurrent, clearMsg } from './../../actions/contactActions';
+import { setAlert } from './../../actions/alertActions';
 
-const ContactForm = ({ addContact, current, updateContact, clearCurrent }) => {
+const ContactForm = ({ addContact, current, updateContact, clearCurrent, msg, status, setAlert, clearMsg }) => {
 	useEffect(
 		() => {
 			if (current) setUser(current);
+			if (msg) {
+				setAlert(msg, 'primary');
+				clearMsg();
+			}
 		},
-		[ current ]
+		//eslint-disable-next-line
+		[ current, msg ]
 	);
 
 	const [ user, setUser ] = useState({
@@ -105,13 +111,16 @@ const ContactForm = ({ addContact, current, updateContact, clearCurrent }) => {
 					</div>
 
 					<div className='form__contact--radio'>
-						<input type='radio' name='type' id='Professional' className='form__contact--radio-input' />
-						<label
-							htmlFor='Professional'
+						<input
+							type='radio'
+							name='type'
 							value='professional'
-							className='form__contact--radio-label'
-							checked={type === 'personal'}
-							onChange={onChange}>
+							id='Professional'
+							checked={type === 'professional'}
+							onChange={onChange}
+							className='form__contact--radio-input'
+						/>
+						<label htmlFor='Professional' className='form__contact--radio-label'>
 							<span className='form__contact--radio-btn' />
 							Professional
 						</label>
@@ -130,7 +139,9 @@ const ContactForm = ({ addContact, current, updateContact, clearCurrent }) => {
 };
 
 const mapStateToProps = (state) => ({
-	current: state.contacts.current
+	current: state.contacts.current,
+	msg: state.contacts.msg,
+	status: state.contacts.status
 });
 
-export default connect(mapStateToProps, { addContact, updateContact, clearCurrent })(ContactForm);
+export default connect(mapStateToProps, { addContact, updateContact, clearCurrent, setAlert, clearMsg })(ContactForm);
