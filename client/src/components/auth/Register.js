@@ -119,7 +119,7 @@ const Register = (props) => {
 				</div>
 
 				<button className='form__contact--submit' type='submit'>
-					Add Contact
+					Register
 					<svg className='form__contact--submit--icon'>
 						<use xlinkHref='img/sprite.svg#icon-circle-with-plus' />
 					</svg>
