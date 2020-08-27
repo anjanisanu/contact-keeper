@@ -7,6 +7,7 @@ import Navbar from './components/layout/Navbar';
 import Alerts from './components/layout/Alerts';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Home from './components/pages/Home';
+import About from './components/pages/About';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Footer from './components/layout/Footer';
@@ -26,6 +27,7 @@ function App() {
 						<Alerts />
 						<Switch>
 							<PrivateRoute exact path='/' component={Home} />
+							<Route exact path='/about' component={About} />
 							<Route exact path='/login' component={Login} />
 							<Route exact path='/register' component={Register} />
 						</Switch>

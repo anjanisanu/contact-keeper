@@ -64,7 +64,7 @@ const Navbar = ({ isAuthenticated, logout, clearContacts }) => {
 						</Link>
 					</li>
 					<li>
-						<Link to='/'>
+						<Link to='/about'>
 							<span>About</span>
 							<svg className='navbar__links--icon'>
 								<use xlinkHref='img/sprite.svg#icon-info-with-circle' />
